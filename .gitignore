@@ -33,5 +33,9 @@ out/
 /nbdist/
 /.nb-gradle/
 
+### git ignore ###
+/src/main/resources/application.properties
+/src/main/resources/application.yml
+
 ### VS Code ###
 .vscode/
