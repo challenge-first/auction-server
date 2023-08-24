@@ -2,7 +2,11 @@ package com.example.auctionserver.auction.service;
 
 import com.example.auctionserver.adapter.client.MemberServiceClient;
 import com.example.auctionserver.adapter.messagequeue.KafkaProducer;
-import com.example.auctionserver.auction.dto.*;
+import com.example.auctionserver.auction.dto.request.RequestAuctionDto;
+import com.example.auctionserver.auction.dto.request.RequestBidDto;
+import com.example.auctionserver.auction.dto.response.ResponseAuctionDto;
+import com.example.auctionserver.auction.dto.response.ResponsePointDto;
+import com.example.auctionserver.auction.dto.response.ResponseWinningPriceDto;
 import com.example.auctionserver.auction.entity.Auction;
 import com.example.auctionserver.auction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +31,7 @@ public class AuctionService {
 
         ResponseAuctionDto responseDto = ResponseAuctionDto.builder()
                 .id(auction.getId())
-                .name(auction.getProductName())
+                .productName(auction.getProductName())
                 .winningPrice(auction.getWinningPrice())
                 .openingPrice(auction.getOpeningPrice())
                 .openingTime(auction.getOpeningTime())
@@ -41,7 +45,6 @@ public class AuctionService {
     @Transactional
     public ResponseWinningPriceDto bid(Long auctionId, RequestAuctionDto requestAuctionDto, Long memberId) {
 
-        memberId = 1L;
         Auction findAuction = auctionRepository.findById(auctionId).orElseThrow(() -> new IllegalArgumentException("상품이 없습니다"));
 
         RequestBidDto bidDto = RequestBidDto.builder()
@@ -49,7 +52,7 @@ public class AuctionService {
                 .bid(requestAuctionDto.getPoint())
                 .build();
 
-        kafkaProducer.sendBidDto("bid-topic", bidDto);
+        kafkaProducer.sendBidDto("bic-topic", bidDto);
 
         ResponsePointDto responsePointDto = memberServiceClient.getPoint(memberId).getBody();
 
@@ -89,11 +92,11 @@ public class AuctionService {
     public void checkAndCloseAuctions() {
         Auction auction = auctionRepository.findByClosingTimeBetween(LocalDateTime.now().withHour(15), LocalDateTime.now().withHour(16).withMinute(59)).orElseThrow();
 
-        RequestWinningPriceDto winningPriceDto = RequestWinningPriceDto.builder()
+        RequestBidDto requestBidDto = RequestBidDto.builder()
                 .memberId(auction.getMemberId())
-                .winningPrice(auction.getWinningPrice())
+                .bid(auction.getWinningPrice())
                 .build();
 
-        kafkaProducer.sendWinningPriceDto("auction-end-topic", winningPriceDto);
+        kafkaProducer.sendBidDto("auction-end-topic", requestBidDto);
     }
 }

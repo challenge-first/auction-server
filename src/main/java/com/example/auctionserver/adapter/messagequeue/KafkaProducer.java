@@ -1,7 +1,6 @@
 package com.example.auctionserver.adapter.messagequeue;
 
-import com.example.auctionserver.auction.dto.RequestBidDto;
-import com.example.auctionserver.auction.dto.RequestWinningPriceDto;
+import com.example.auctionserver.auction.dto.request.RequestBidDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -28,19 +27,5 @@ public class KafkaProducer {
 
         kafkaTemplate.send(topic, jsonInString);
         log.info("memberId:{}, point:{}", bidDto.getMemberId(), bidDto.getBid());
-    }
-
-    public void sendWinningPriceDto(String topic, RequestWinningPriceDto winningPriceDto) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonInString = "";
-
-        try {
-            jsonInString = objectMapper.writeValueAsString(winningPriceDto);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        kafkaTemplate.send(topic, jsonInString);
-        log.info("memberId:{}, point:{}", winningPriceDto.getMemberId(), winningPriceDto.getWinningPrice());
     }
 }

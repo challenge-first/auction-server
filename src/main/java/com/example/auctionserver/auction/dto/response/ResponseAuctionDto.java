@@ -1,4 +1,4 @@
-package com.example.auctionserver.auction.dto;
+package com.example.auctionserver.auction.dto.response;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseAuctionDto {
     private Long id;
-    private String name;
+    private String productName;
     private String imageUrl;
     private Long openingPrice;
     private LocalDateTime openingTime;
