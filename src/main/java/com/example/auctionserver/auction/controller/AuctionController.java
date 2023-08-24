@@ -1,8 +1,8 @@
 package com.example.auctionserver.auction.controller;
 
-import com.example.auctionserver.auction.dto.RequestAuctionDto;
-import com.example.auctionserver.auction.dto.ResponseAuctionDto;
-import com.example.auctionserver.auction.dto.ResponseWinningPriceDto;
+import com.example.auctionserver.auction.dto.request.RequestAuctionDto;
+import com.example.auctionserver.auction.dto.response.ResponseAuctionDto;
+import com.example.auctionserver.auction.dto.response.ResponseWinningPriceDto;
 import com.example.auctionserver.global.auth.LoginMember;
 import com.example.auctionserver.global.response.ResponseDataDto;
 import com.example.auctionserver.auction.service.AuctionService;

@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    discovery:
+      enabled: false
+
+    config:
+      allow-override: false
+
+
+kafka:
+  bootstrap:
+    addresses:${spring.embedded.kafka.brokers:localhost:9092}
