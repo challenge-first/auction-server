@@ -1,7 +1,7 @@
 package com.example.auctionserver.auction.service;
 
 import com.example.auctionserver.adapter.client.MemberServiceClient;
-import com.example.auctionserver.adapter.messagequeue.KafkaProducer;
+import com.example.auctionserver.adapter.messagequeue.AuctionProducer;
 import com.example.auctionserver.auction.dto.request.RequestAuctionDto;
 import com.example.auctionserver.auction.dto.request.RequestBidDto;
 import com.example.auctionserver.auction.dto.response.ResponseAuctionDto;
@@ -22,7 +22,7 @@ public class AuctionService {
 
     private final AuctionRepository auctionRepository;
     private final MemberServiceClient memberServiceClient;
-    private final KafkaProducer kafkaProducer;
+    private final AuctionProducer kafkaProducer;
 
     public ResponseAuctionDto getAuction() {
 
