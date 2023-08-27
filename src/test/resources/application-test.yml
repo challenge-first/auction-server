@@ -5,8 +5,12 @@ spring:
 
     config:
       allow-override: false
-
-
-kafka:
-  bootstrap:
-    addresses:${spring.embedded.kafka.brokers:localhost:9092}
+    kafka:
+      producer:
+        bootstrap-servers: localhost:9092
+      consumer:
+        auto-offset-reset: earliest
+        bootstrap-servers: localhost:9092
+        enable-auto-commit: false
+      listener:
+        ack-mode: manual
