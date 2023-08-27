@@ -1,0 +1,53 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: auction-server
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${secrets.DB_URL}
+    username: ${secrets.DB_USERNAME}
+    password: ${secrets.DB_PASSWORD}
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${secrets.EUREKA_DEFAULT_ZONE}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ${secrets.ACTUATOR_END_POINT}
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: b3
+      produce: b3_multi
+  zipkin:
+    tracing:
+      endpoint: ${secrets.ZIPKIN_BASE_URL}
+
+kafka:
+  topic:
+    bid: ${secrets.KAFKA_TOPIC_BID}
+    auction-end: ${secrets.KAFKA_TOPIC_AUCTION_END}
+  address: ${secrets.KAFKA_ADDRESS}
+
+logging:
+  pattern:
+    level: "%5p [%X{traceId:-},  %X{spanId:-}]"

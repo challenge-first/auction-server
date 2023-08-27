@@ -10,6 +10,7 @@ import com.example.auctionserver.auction.dto.response.ResponseWinningPriceDto;
 import com.example.auctionserver.auction.entity.Auction;
 import com.example.auctionserver.auction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,12 @@ public class AuctionService {
     private final AuctionRepository auctionRepository;
     private final MemberServiceClient memberServiceClient;
     private final KafkaProducer kafkaProducer;
+
+    @Value("${kafka.topic.bid}")
+    private String bidTopic;
+
+    @Value("${kafka.topic.auction-end}")
+    private String auctionEndTopic;
 
     public ResponseAuctionDto getAuction() {
 
@@ -52,7 +59,7 @@ public class AuctionService {
                 .bid(requestAuctionDto.getPoint())
                 .build();
 
-        kafkaProducer.sendBidDto("bid-topic", bidDto);
+        kafkaProducer.sendBidDto(bidTopic, bidDto);
 
         ResponsePointDto responsePointDto = memberServiceClient.getPoint(memberId).getBody();
 
@@ -97,6 +104,6 @@ public class AuctionService {
                 .bid(auction.getWinningPrice())
                 .build();
 
-        kafkaProducer.sendBidDto("auction-end-topic", requestBidDto);
+        kafkaProducer.sendBidDto(auctionEndTopic, requestBidDto);
     }
 }
