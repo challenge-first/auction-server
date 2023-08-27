@@ -6,6 +6,7 @@ import com.example.auctionserver.auction.dto.response.ResponseWinningPriceDto;
 import com.example.auctionserver.global.auth.LoginMember;
 import com.example.auctionserver.global.response.ResponseDataDto;
 import com.example.auctionserver.auction.service.AuctionService;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class AuctionController {
     private final AuctionService auctionService;
 
     @GetMapping
+    @Timed(value = "auctions.getAuction", longTask = true)
     public ResponseEntity<ResponseDataDto> getAuction() {
 
         ResponseDataDto<ResponseAuctionDto> response = new ResponseDataDto<>(auctionService.getAuction());
@@ -26,6 +28,7 @@ public class AuctionController {
     }
 
     @PostMapping("/{auctionId}")
+    @Timed(value = "auctions.bid", longTask = true)
     public ResponseEntity<ResponseDataDto> bid(@PathVariable Long auctionId,
                                                @RequestBody RequestAuctionDto requestAuctionDto,
                                                @LoginMember Long memberId) {
