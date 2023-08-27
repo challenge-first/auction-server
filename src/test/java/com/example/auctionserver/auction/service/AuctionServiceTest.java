@@ -1,7 +1,7 @@
 package com.example.auctionserver.auction.service;
 
 import com.example.auctionserver.adapter.client.MemberServiceClient;
-import com.example.auctionserver.adapter.messagequeue.AuctionProducer;
+import com.example.auctionserver.adapter.messagequeue.KafkaProducer;
 import com.example.auctionserver.auction.dto.request.RequestAuctionDto;
 import com.example.auctionserver.auction.dto.response.ResponseAuctionDto;
 import com.example.auctionserver.auction.dto.response.ResponsePointDto;
@@ -34,7 +34,7 @@ class AuctionServiceTest {
     private AuctionRepository auctionRepository;
 
     @Mock
-    private AuctionProducer kafkaProducer;
+    private KafkaProducer kafkaProducer;
 
     @Mock
     private MemberServiceClient memberServiceClient;

@@ -1,7 +1,7 @@
 package com.example.auctionserver.auction.service;
 
 import com.example.auctionserver.adapter.client.MemberServiceClient;
-import com.example.auctionserver.adapter.messagequeue.AuctionProducer;
+import com.example.auctionserver.adapter.messagequeue.KafkaProducer;
 import com.example.auctionserver.auction.dto.request.RequestAuctionDto;
 import com.example.auctionserver.auction.dto.request.RequestBidDto;
 import com.example.auctionserver.auction.dto.response.ResponseAuctionDto;
@@ -10,6 +10,7 @@ import com.example.auctionserver.auction.dto.response.ResponseWinningPriceDto;
 import com.example.auctionserver.auction.entity.Auction;
 import com.example.auctionserver.auction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,13 @@ public class AuctionService {
 
     private final AuctionRepository auctionRepository;
     private final MemberServiceClient memberServiceClient;
-    private final AuctionProducer kafkaProducer;
+    private final KafkaProducer kafkaProducer;
+
+    @Value("${kafka.topic.bid}")
+    private String bidTopic;
+
+    @Value("${kafka.topic.auction-end}")
+    private String auctionEndTopic;
 
     public ResponseAuctionDto getAuction() {
 
@@ -45,14 +52,14 @@ public class AuctionService {
     @Transactional
     public ResponseWinningPriceDto bid(Long auctionId, RequestAuctionDto requestAuctionDto, Long memberId) {
 
-        Auction findAuction = auctionRepository.findById(auctionId).orElseThrow(() -> new IllegalArgumentException("상품이 없습니다"));
+        Auction findAuction = auctionRepository.findById(auctionId).orElseThrow(() -> new IllegalArgumentException("진행중인 경매가 없습니다"));
 
         RequestBidDto bidDto = RequestBidDto.builder()
                 .memberId(memberId)
                 .bid(requestAuctionDto.getPoint())
                 .build();
 
-        kafkaProducer.sendBidDto("bic-topic", bidDto);
+        kafkaProducer.sendBidDto(bidTopic, bidDto);
 
         ResponsePointDto responsePointDto = memberServiceClient.getPoint(memberId).getBody();
 
@@ -72,7 +79,7 @@ public class AuctionService {
             throw new IllegalArgumentException("기본 입찰가보다 부족한 입찰 금액입니다");
         }
 
-        if (requestAuctionDto.getPoint() < auction.getWinningPrice()) {
+        if (requestAuctionDto.getPoint() <= auction.getWinningPrice()) {
             throw new IllegalArgumentException("현재 입찰가보다 부족한 입찰 금액입니다");
         }
 
@@ -97,6 +104,6 @@ public class AuctionService {
                 .bid(auction.getWinningPrice())
                 .build();
 
-        kafkaProducer.sendBidDto("auction-end-topic", requestBidDto);
+        kafkaProducer.sendBidDto(auctionEndTopic, requestBidDto);
     }
 }
