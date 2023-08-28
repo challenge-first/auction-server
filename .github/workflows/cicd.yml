@@ -51,16 +51,4 @@ jobs:
             sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
             
-            sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} \
-            --name ${{ secrets.PROJECT_NAME }} \
-            -e PORT=${{ secrets.PORT }} \
-            -e DB_URL=${{ secrets.DB_URL }} \
-            -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
-            -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-            -e EUREKA_DEFAULT_ZONE=${{ secrets.EUREKA_DEFAULT_ZONE }} \
-            -e KAFKA_TOPIC_BID=${{ secrets.KAFKA_TOPIC_BID }} \
-            -e KAFKA_TOPIC_AUCTION_END=${{ secrets.KAFKA_TOPIC_AUCTION_END }} \
-            -e KAFKA_ADDRESS=${{ secrets.KAFKA_ADDRESS }} \
-            -e ZIPKIN_BASE_URL=${{ secrets.ZIPKIN_BASE_URL }} \
-            -e ACTUATOR_END_POINT=${{ secrets.ACTUATOR_END_POINT }} \
-            -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
+            sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} --name ${{ secrets.PROJECT_NAME }} -e PORT=${{ secrets.PORT }} -e DB_URL=${{ secrets.DB_URL }} -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e EUREKA_DEFAULT_ZONE=${{ secrets.EUREKA_DEFAULT_ZONE }} -e KAFKA_TOPIC_BID=${{ secrets.KAFKA_TOPIC_BID }} -e KAFKA_TOPIC_AUCTION_END=${{ secrets.KAFKA_TOPIC_AUCTION_END }} -e KAFKA_ADDRESS=${{ secrets.KAFKA_ADDRESS }} -e ZIPKIN_BASE_URL=${{ secrets.ZIPKIN_BASE_URL }} -e ACTUATOR_END_POINT=${{ secrets.ACTUATOR_END_POINT }} -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
