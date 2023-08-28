@@ -39,7 +39,7 @@ management:
       produce: b3_multi
   zipkin:
     tracing:
-      endpoint: ${ZIPKIN_BASE_URL}
+      endpoint: http://43.201.68.187:9411/api/v2/spans
 
 kafka:
   topic:
