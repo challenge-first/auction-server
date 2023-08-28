@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    discovery:
+      enabled: false
+    config:
+      allow-override: false
