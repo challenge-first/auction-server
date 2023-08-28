@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class LogAspect {
 
 
-    @Pointcut("execution(* com.example.auctionserver.auction.controller..*(..))")
+    @Pointcut("execution(* com.example.auctionserver.auction..*(..))")
     public void all() {}
 
     @Before("all()")
