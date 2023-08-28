@@ -1,4 +1,4 @@
-package com.example.auctionserver.auction.dto.request;
+package com.example.auctionserver.domain.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

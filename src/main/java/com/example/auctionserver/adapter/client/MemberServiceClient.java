@@ -1,6 +1,6 @@
 package com.example.auctionserver.adapter.client;
 
-import com.example.auctionserver.auction.dto.response.ResponsePointDto;
+import com.example.auctionserver.domain.dto.response.ResponsePointDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.example.auctionserver.auction.dto.response;
+package com.example.auctionserver.domain.dto.response;
 
 import lombok.*;
 

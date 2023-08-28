@@ -1,19 +1,17 @@
-package com.example.auctionserver.auction.dto.response;
+package com.example.auctionserver.domain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PROTECTED;
 
 @Getter
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class ResponsePointDto {
+public class ResponseWinningPriceDto {
 
-    private Long point;
-    private Long deposit;
-    private Long availablePoint;
+    private Long winningPrice;
 }

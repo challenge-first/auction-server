@@ -1,4 +1,4 @@
-package com.example.auctionserver.auction.entity;
+package com.example.auctionserver.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

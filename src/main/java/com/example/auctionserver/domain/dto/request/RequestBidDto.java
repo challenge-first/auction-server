@@ -1,9 +1,11 @@
-package com.example.auctionserver.auction.dto.response;
+package com.example.auctionserver.domain.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -11,7 +13,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class ResponseWinningPriceDto {
+public class RequestBidDto implements Serializable {
 
-    private Long winningPrice;
+    private Long memberId;
+    private Long bid;
 }
