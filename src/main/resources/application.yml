@@ -1,15 +1,14 @@
 server:
-  port: 0
+  port: ${PORT}
 
 spring:
   application:
     name: auction-server
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${secrets.DB_URL}
-    username: ${secrets.DB_USERNAME}
-    password: ${secrets.DB_PASSWORD}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   h2:
     console:
       enabled: true
@@ -25,13 +24,13 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: ${secrets.EUREKA_DEFAULT_ZONE}
+      defaultZone: ${EUREKA_DEFAULT_ZONE}
 
 management:
   endpoints:
     web:
       exposure:
-        include: ${secrets.ACTUATOR_END_POINT}
+        include: ${ACTUATOR_END_POINT}
   tracing:
     sampling:
       probability: 1.0
@@ -40,13 +39,13 @@ management:
       produce: b3_multi
   zipkin:
     tracing:
-      endpoint: ${secrets.ZIPKIN_BASE_URL}
+      endpoint: ${ZIPKIN_BASE_URL}
 
 kafka:
   topic:
-    bid: ${secrets.KAFKA_TOPIC_BID}
-    auction-end: ${secrets.KAFKA_TOPIC_AUCTION_END}
-  address: ${secrets.KAFKA_ADDRESS}
+    bid: ${KAFKA_TOPIC_BID}
+    auction-end: ${KAFKA_TOPIC_AUCTION_END}
+  address: ${KAFKA_ADDRESS}
 
 logging:
   pattern:
