@@ -93,7 +93,7 @@ class AuctionServiceTest {
     }
 
     @Test
-    @DisplayName("입찰 성공 테스트1")
+    @DisplayName("입찰 성공 테스트")
     public void bidSuccess1() {
 
         when(memberServiceClient.getPoint(any()))
