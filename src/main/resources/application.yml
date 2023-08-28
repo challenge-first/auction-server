@@ -25,6 +25,8 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: ${EUREKA_DEFAULT_ZONE}
+  instance:
+    hostname: 3.35.210.102
 
 management:
   endpoints:
