@@ -1,13 +1,13 @@
-package com.example.auctionserver.domain.service;
+package com.example.auctionserver.auction.service;
 
 import com.example.auctionserver.adapter.client.MemberServiceClient;
 import com.example.auctionserver.adapter.messagequeue.KafkaProducer;
-import com.example.auctionserver.domain.dto.request.RequestAuctionDto;
-import com.example.auctionserver.domain.dto.response.ResponseAuctionDto;
-import com.example.auctionserver.domain.dto.response.ResponsePointDto;
-import com.example.auctionserver.domain.dto.response.ResponseWinningPriceDto;
-import com.example.auctionserver.domain.entity.Auction;
-import com.example.auctionserver.domain.repository.AuctionRepository;
+import com.example.auctionserver.auction.dto.request.RequestAuctionDto;
+import com.example.auctionserver.auction.dto.response.ResponseAuctionDto;
+import com.example.auctionserver.auction.dto.response.ResponsePointDto;
+import com.example.auctionserver.auction.dto.response.ResponseWinningPriceDto;
+import com.example.auctionserver.auction.entity.Auction;
+import com.example.auctionserver.auction.repository.AuctionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

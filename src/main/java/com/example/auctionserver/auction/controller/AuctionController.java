@@ -1,9 +1,9 @@
-package com.example.auctionserver.domain.controller;
+package com.example.auctionserver.auction.controller;
 
-import com.example.auctionserver.domain.dto.request.RequestAuctionDto;
-import com.example.auctionserver.domain.dto.response.ResponseAuctionDto;
-import com.example.auctionserver.domain.dto.response.ResponseWinningPriceDto;
-import com.example.auctionserver.domain.service.AuctionService;
+import com.example.auctionserver.auction.dto.request.RequestAuctionDto;
+import com.example.auctionserver.auction.dto.response.ResponseAuctionDto;
+import com.example.auctionserver.auction.dto.response.ResponseWinningPriceDto;
+import com.example.auctionserver.auction.service.AuctionService;
 import com.example.auctionserver.global.auth.LoginMember;
 import com.example.auctionserver.global.response.ResponseDataDto;
 import lombok.RequiredArgsConstructor;
