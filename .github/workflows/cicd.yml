@@ -58,6 +58,7 @@ jobs:
             -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
             -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
             -e EUREKA_DEFAULT_ZONE=${{ secrets.EUREKA_DEFAULT_ZONE }} \
+            -e PRIVATE_IP=${{ PRIVATE_IP }} \
             -e KAFKA_TOPIC_BID=${{ secrets.KAFKA_TOPIC_BID }} \
             -e KAFKA_TOPIC_AUCTION_END=${{ secrets.KAFKA_TOPIC_AUCTION_END }} \
             -e KAFKA_ADDRESS=${{ secrets.KAFKA_ADDRESS }} \
