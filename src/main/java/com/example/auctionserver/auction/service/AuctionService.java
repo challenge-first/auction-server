@@ -52,7 +52,7 @@ public class AuctionService {
     @Transactional
     public ResponseWinningPriceDto bid(Long auctionId, RequestAuctionDto requestAuctionDto, Long memberId) {
 
-        Auction findAuction = auctionRepository.findById(auctionId).orElseThrow(() -> new IllegalArgumentException("진행중인 경매가 없습니다"));
+        Auction findAuction = auctionRepository.findAuctionById(auctionId).orElseThrow(() -> new IllegalArgumentException("진행중인 경매가 없습니다"));
 
         RequestBidDto bidDto = RequestBidDto.builder()
                 .memberId(memberId)
@@ -94,9 +94,10 @@ public class AuctionService {
                 .build();
     }
 
-    @Scheduled(cron = "0 0 17 * * *")
+    @Scheduled(cron = "1 59 16 * * *")
     @Transactional(readOnly = true)
     public void checkAndCloseAuctions() {
+
         Auction auction = auctionRepository.findByClosingTimeBetween(LocalDateTime.now().withHour(15), LocalDateTime.now().withHour(16).withMinute(59)).orElseThrow();
 
         RequestBidDto requestBidDto = RequestBidDto.builder()

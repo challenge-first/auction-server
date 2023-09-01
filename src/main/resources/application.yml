@@ -1,5 +1,9 @@
 server:
   port: ${PORT}
+  tomcat:
+    threads:
+      max: 400
+      min-spare: 40
 
 spring:
   application:
@@ -9,6 +13,8 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 30
   h2:
     console:
       enabled: true
