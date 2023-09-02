@@ -22,7 +22,12 @@ public class GetAuctionService implements GetAuctionUseCase {
 
         Auction auction = getAuctionPort.findByCurrentTime(LocalDateTime.now());
 
-        GetAuctionResponse getAuctionResponse = GetAuctionResponse.builder()
+        return createGetAuctionResponse(auction);
+    }
+
+    private GetAuctionResponse createGetAuctionResponse(Auction auction) {
+
+        return GetAuctionResponse.builder()
                 .id(auction.getId())
                 .productName(auction.getProductName())
                 .winningPrice(auction.getWinningPrice())
@@ -31,7 +36,5 @@ public class GetAuctionService implements GetAuctionUseCase {
                 .imageUrl(auction.getImageUrl())
                 .closingTime(auction.getClosingTime())
                 .build();
-
-        return getAuctionResponse;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.auctionserver.domain;
 
-import com.example.auctionserver.application.port.in.BidAuctionRequest;
+import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,17 +51,18 @@ public class Auction {
 
     public void update (BidAuctionRequest bidAuctionRequest, Long memberId) {
 
-        if (bidAuctionRequest.getPoint() > this.openingPrice) {
+        if (bidAuctionRequest.getPoint() < this.openingPrice) {
             throw new IllegalArgumentException("기본 입찰가보다 부족한 입찰 금액입니다");
         }
 
-        if (bidAuctionRequest.getPoint() > this.winningPrice) {
+        if (bidAuctionRequest.getPoint() <= this.winningPrice) {
             throw new IllegalArgumentException("현재 입찰가보다 부족한 입찰 금액입니다");
         }
 
         if (bidAuctionRequest.getTime().isAfter(this.closingTime)) {
             throw new IllegalStateException("경매가 종료되었습니다");
         }
+
         this.winningPrice = bidAuctionRequest.getPoint();
         this.memberId = memberId;
     }

@@ -1,6 +1,6 @@
 package com.example.auctionserver.adapter.in.web;
 
-import com.example.auctionserver.application.port.in.BidAuctionRequest;
+import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
 import com.example.auctionserver.application.port.in.BidAuctionUseCase;
 import com.example.auctionserver.application.port.out.model.UpdateWinningPriceResponse;
 import com.example.auctionserver.global.auth.LoginMember;

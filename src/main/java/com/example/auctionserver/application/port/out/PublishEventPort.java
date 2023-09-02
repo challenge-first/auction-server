@@ -3,7 +3,9 @@ package com.example.auctionserver.application.port.out;
 import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
 import com.example.auctionserver.domain.Auction;
 
-public interface UpdateWinningPricePort {
+public interface PublishEventPort {
 
-    Auction updateAuction(Long auctionId, BidAuctionRequest bidAuctionRequest, Long memberId);
+    void sendBidEvent(Long memberId, BidAuctionRequest bidAuctionRequest);
+
+    void sendEndEvent(Auction auction);
 }

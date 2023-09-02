@@ -1,4 +1,4 @@
-package com.example.auctionserver.application.port.in;
+package com.example.auctionserver.application.port.in.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

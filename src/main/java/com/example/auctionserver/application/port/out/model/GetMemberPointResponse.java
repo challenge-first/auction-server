@@ -12,7 +12,6 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
 public class GetMemberPointResponse {
+
     private Long point;
-    private Long deposit;
-    private Long availablePoint;
 }
