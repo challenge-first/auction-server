@@ -1,13 +1,14 @@
 package com.example.auctionserver.auction.service;
 
-import com.example.auctionserver.adapter.client.MemberServiceClient;
-import com.example.auctionserver.adapter.messagequeue.KafkaProducer;
-import com.example.auctionserver.auction.dto.request.RequestAuctionDto;
-import com.example.auctionserver.auction.dto.response.ResponseAuctionDto;
-import com.example.auctionserver.auction.dto.response.ResponsePointDto;
-import com.example.auctionserver.auction.dto.response.ResponseWinningPriceDto;
-import com.example.auctionserver.auction.entity.Auction;
-import com.example.auctionserver.auction.repository.AuctionRepository;
+import com.example.auctionserver.adapter.out.feign.MemberServiceClient;
+import com.example.auctionserver.adapter.out.event.BidEventProducer;
+import com.example.auctionserver.global.dto.request.RequestAuctionDto;
+import com.example.auctionserver.global.dto.response.ResponseAuctionDto;
+import com.example.auctionserver.global.dto.response.ResponsePointDto;
+import com.example.auctionserver.global.dto.response.ResponseWinningPriceDto;
+import com.example.auctionserver.domain.Auction;
+import com.example.auctionserver.adapter.out.persistence.AuctionRepository;
+import com.example.auctionserver.application.service.AuctionService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +35,7 @@ class AuctionServiceTest {
     private AuctionRepository auctionRepository;
 
     @Mock
-    private KafkaProducer kafkaProducer;
+    private BidEventProducer kafkaProducer;
 
     @Mock
     private MemberServiceClient memberServiceClient;
