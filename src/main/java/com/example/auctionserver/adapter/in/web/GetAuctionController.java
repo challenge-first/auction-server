@@ -1,7 +1,7 @@
 package com.example.auctionserver.adapter.in.web;
 
-import com.example.auctionserver.application.port.in.GetAuctionUseCase;
-import com.example.auctionserver.application.port.out.model.ResponseAuctionDto;
+import com.example.auctionserver.application.usecase.GetAuctionQuery;
+import com.example.auctionserver.application.usecase.model.ResponseAuctionDto;
 import com.example.auctionserver.global.response.ResponseDataDto;
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auctions")
 public class GetAuctionController {
 
-    private final GetAuctionUseCase getAuctionUseCase;
+    private final GetAuctionQuery getAuctionQuery;
 
     @GetMapping
     @Timed(value = "auctions.getAuction", longTask = true)
     public ResponseEntity<ResponseDataDto> getAuction() {
 
-        ResponseDataDto<ResponseAuctionDto> response = new ResponseDataDto<>(getAuctionUseCase.getAuction());
+        ResponseDataDto<ResponseAuctionDto> response = new ResponseDataDto<>(getAuctionQuery.getAuction());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

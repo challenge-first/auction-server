@@ -1,7 +1,8 @@
 package com.example.auctionserver.adapter.in.web;
 
-import com.example.auctionserver.application.port.in.PostAuctionUseCase;
-import com.example.auctionserver.application.port.in.model.RequestAuctionDto;
+import com.example.auctionserver.application.port.in.PostAuctionCommand;
+import com.example.auctionserver.application.usecase.PostAuctionUseCase;
+import com.example.auctionserver.adapter.in.web.model.RequestAuctionDto;
 import com.example.auctionserver.global.auth.LoginMember;
 import com.example.auctionserver.global.response.ResponseDataDto;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,17 @@ public class PostAuctionController {
     public ResponseEntity<ResponseDataDto> bid(@RequestBody RequestAuctionDto requestAuctionDto,
                                                @LoginMember Long memberId) {
 
-        ResponseDataDto<String> response = new ResponseDataDto<>(postAuctionUseCase.createAuction(requestAuctionDto, memberId));
+        PostAuctionCommand postAuctionCommand = PostAuctionCommand.builder()
+                .memberId(memberId)
+                .productId(requestAuctionDto.getProductId())
+                .productName(requestAuctionDto.getProductName())
+                .imageUrl(requestAuctionDto.getImageUrl())
+                .openingPrice(requestAuctionDto.getOpeningPrice())
+                .openingTime(requestAuctionDto.getOpeningTime())
+                .closingTime(requestAuctionDto.getClosingTime())
+                .build();
+
+        ResponseDataDto<String> response = new ResponseDataDto<>(postAuctionUseCase.createAuction(postAuctionCommand));
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

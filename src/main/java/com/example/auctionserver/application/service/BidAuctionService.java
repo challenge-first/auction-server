@@ -1,11 +1,11 @@
 package com.example.auctionserver.application.service;
 
-import com.example.auctionserver.application.port.in.BidAuctionUseCase;
-import com.example.auctionserver.application.port.in.model.RequestBidDto;
+import com.example.auctionserver.application.port.in.BidAuctionCommand;
+import com.example.auctionserver.application.usecase.BidAuctionUseCase;
 import com.example.auctionserver.application.port.out.GetMemberPointPort;
 import com.example.auctionserver.application.port.out.PublishEventPort;
 import com.example.auctionserver.application.port.out.UpdateWinningPricePort;
-import com.example.auctionserver.application.port.out.model.ResponseWinningPriceDto;
+import com.example.auctionserver.application.usecase.model.ResponseBidDto;
 import com.example.auctionserver.domain.Auction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,19 +21,19 @@ public class BidAuctionService implements BidAuctionUseCase {
 
     @Override
     @Transactional
-    public ResponseWinningPriceDto bid(Long auctionId, RequestBidDto requestBidDto, Long memberId) {
+    public ResponseBidDto bid(BidAuctionCommand bidAuctionCommand) {
 
-        getMemberPointPort.validatePoint(memberId, requestBidDto);
+        getMemberPointPort.validatePoint(bidAuctionCommand.getBidPoint(), bidAuctionCommand.getMemberId());
 
-        Auction updateAuction = updateWinningPricePort.updateAuction(auctionId, requestBidDto, memberId);
+        Auction updateAuction = updateWinningPricePort.updateAuction(bidAuctionCommand.getAuctionId(), bidAuctionCommand.getBidPoint(), bidAuctionCommand.getBidTime(), bidAuctionCommand.getMemberId());
 
-        publishEventPort.sendBidEvent(memberId, requestBidDto);
+        publishEventPort.sendBidEvent(bidAuctionCommand.getBidPoint(), bidAuctionCommand.getMemberId());
 
-        return updateWinningPriceResponse(updateAuction);
+        return createResponseBidDto(updateAuction);
     }
 
-    private ResponseWinningPriceDto updateWinningPriceResponse(Auction auction) {
-        return ResponseWinningPriceDto.builder()
+    private ResponseBidDto createResponseBidDto(Auction auction) {
+        return ResponseBidDto.builder()
                 .winningPrice(auction.getWinningPrice())
                 .build();
     }

@@ -1,6 +1,6 @@
 package com.example.auctionserver.domain;
 
-import com.example.auctionserver.application.port.in.model.RequestBidDto;
+import com.example.auctionserver.adapter.in.web.model.RequestBidDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,21 +49,21 @@ public class Auction {
     @Column(nullable = false)
     private LocalDateTime closingTime;
 
-    public void update(RequestBidDto requestBidDto, Long memberId) {
+    public void update(Long bidPoint, LocalDateTime bidTime,  Long memberId) {
 
-        if (requestBidDto.getPoint() < this.openingPrice) {
+        if (bidPoint < this.openingPrice) {
             throw new IllegalArgumentException("기본 입찰가보다 부족한 입찰 금액입니다");
         }
 
-        if (requestBidDto.getPoint() <= this.winningPrice) {
+        if (bidPoint < this.winningPrice) {
             throw new IllegalArgumentException("현재 입찰가보다 부족한 입찰 금액입니다");
         }
 
-        if (requestBidDto.getTime().isAfter(this.closingTime)) {
+        if (bidTime.isAfter(this.closingTime)) {
             throw new IllegalStateException("경매가 종료되었습니다");
         }
 
-        this.winningPrice = requestBidDto.getPoint();
+        this.winningPrice = bidPoint;
         this.memberId = memberId;
     }
 }

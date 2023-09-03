@@ -1,8 +1,8 @@
 package com.example.auctionserver.application.port.out;
 
-import com.example.auctionserver.application.port.in.model.RequestAuctionDto;
+import com.example.auctionserver.application.port.in.PostAuctionCommand;
 
 public interface PostAuctionPort {
 
-    void createAuction(RequestAuctionDto requestAuctionDto, Long memberId);
+    void createAuction(PostAuctionCommand postAuctionCommand);
 }

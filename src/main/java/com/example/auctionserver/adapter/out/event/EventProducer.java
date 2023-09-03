@@ -1,6 +1,5 @@
 package com.example.auctionserver.adapter.out.event;
 
-import com.example.auctionserver.application.port.in.model.RequestBidDto;
 import com.example.auctionserver.application.port.out.PublishEventPort;
 import com.example.auctionserver.application.port.out.model.BidEventModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,9 +25,9 @@ public class EventProducer implements PublishEventPort {
     private String auctionEndTopic;
 
     @Override
-    public void sendBidEvent(Long memberId, RequestBidDto requestBidDto) {
+    public void sendBidEvent(Long bidPoint, Long memberId) {
 
-        BidEventModel bidEventModel = getBidEventModel(memberId, requestBidDto.getPoint());
+        BidEventModel bidEventModel = getBidEventModel(memberId, bidPoint);
 
         try {
             kafkaTemplate.send(bidTopic, objectMapper.writeValueAsString(bidEventModel));
@@ -40,9 +39,9 @@ public class EventProducer implements PublishEventPort {
     }
 
     @Override
-    public void sendEndEvent(Long memberId, Long point) {
+    public void sendEndEvent(Long memberId, Long bidPoint) {
 
-        BidEventModel bidEventModel = getBidEventModel(memberId, point);
+        BidEventModel bidEventModel = getBidEventModel(memberId, bidPoint);
 
         try {
             kafkaTemplate.send(auctionEndTopic, objectMapper.writeValueAsString(bidEventModel));

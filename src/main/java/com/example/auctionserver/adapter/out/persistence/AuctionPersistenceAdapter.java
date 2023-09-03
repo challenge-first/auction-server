@@ -1,7 +1,8 @@
 package com.example.auctionserver.adapter.out.persistence;
 
-import com.example.auctionserver.application.port.in.model.RequestAuctionDto;
-import com.example.auctionserver.application.port.in.model.RequestBidDto;
+import com.example.auctionserver.adapter.in.web.model.RequestAuctionDto;
+import com.example.auctionserver.adapter.in.web.model.RequestBidDto;
+import com.example.auctionserver.application.port.in.PostAuctionCommand;
 import com.example.auctionserver.application.port.out.EndAuctionPort;
 import com.example.auctionserver.application.port.out.GetAuctionPort;
 import com.example.auctionserver.application.port.out.PostAuctionPort;
@@ -25,10 +26,10 @@ public class AuctionPersistenceAdapter implements GetAuctionPort, UpdateWinningP
     }
 
     @Override
-    public Auction updateAuction(Long auctionId, RequestBidDto requestBidDto, Long memberId) {
+    public Auction updateAuction(Long auctionId, Long bidPoint, LocalDateTime bidTime, Long memberId) {
         Auction findAuction = auctionRepository.findAuctionById(auctionId).orElseThrow(
                 () -> new IllegalArgumentException("진행중인 경매가 없습니다"));
-        findAuction.update(requestBidDto, memberId);
+        findAuction.update(bidPoint, bidTime, memberId);
         return findAuction;
     }
 
@@ -38,21 +39,21 @@ public class AuctionPersistenceAdapter implements GetAuctionPort, UpdateWinningP
     }
 
     @Override
-    public void createAuction(RequestAuctionDto requestAuctionDto, Long memberId) {
-        Auction createAuction = create(requestAuctionDto, memberId);
+    public void createAuction(PostAuctionCommand postAuctionCommand) {
+        Auction createAuction = create(postAuctionCommand);
         auctionRepository.save(createAuction);
     }
 
-    private Auction create(RequestAuctionDto requestAuctionDto, Long memberId) {
+    private Auction create(PostAuctionCommand postAuctionCommand) {
         return Auction.builder()
-                .memberId(memberId)
-                .productId(requestAuctionDto.getProductId())
-                .productName(requestAuctionDto.getProductName())
-                .imageUrl(requestAuctionDto.getImageUrl())
-                .openingPrice(requestAuctionDto.getOpeningPrice())
-                .winningPrice(requestAuctionDto.getOpeningPrice())
-                .openingTime(requestAuctionDto.getOpeningTime())
-                .closingTime(requestAuctionDto.getClosingTime())
+                .memberId(postAuctionCommand.getMemberId())
+                .productId(postAuctionCommand.getProductId())
+                .productName(postAuctionCommand.getProductName())
+                .imageUrl(postAuctionCommand.getImageUrl())
+                .openingPrice(postAuctionCommand.getOpeningPrice())
+                .winningPrice(postAuctionCommand.getOpeningPrice())
+                .openingTime(postAuctionCommand.getOpeningTime())
+                .closingTime(postAuctionCommand.getClosingTime())
                 .build();
     }
 }

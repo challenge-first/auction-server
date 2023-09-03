@@ -1,5 +1,8 @@
-package com.example.auctionserver.application.port.out.model;
+package com.example.auctionserver.application.port.in;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,13 +16,29 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class ResponseAuctionDto {
+public class PostAuctionCommand {
 
-    private Long id;
+    @NotNull
+    private Long memberId;
+
+    @NotNull
+    private Long productId;
+
+    @NotNull
+    @NotBlank
     private String productName;
+
+    @NotNull
+    @NotBlank
     private String imageUrl;
+
+    @NotNull
+    @Min(0)
     private Long openingPrice;
+
+    @NotNull
     private LocalDateTime openingTime;
+
+    @NotNull
     private LocalDateTime closingTime;
-    private Long winningPrice;
 }

@@ -1,4 +1,4 @@
-package com.example.auctionserver.application.port.out.model;
+package com.example.auctionserver.application.usecase.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class ResponseWinningPriceDto {
+public class ResponseBidDto {
+
     private Long winningPrice;
 }

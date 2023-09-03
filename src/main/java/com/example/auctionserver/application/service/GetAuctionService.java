@@ -1,8 +1,8 @@
 package com.example.auctionserver.application.service;
 
-import com.example.auctionserver.application.port.in.GetAuctionUseCase;
+import com.example.auctionserver.application.usecase.GetAuctionQuery;
 import com.example.auctionserver.application.port.out.GetAuctionPort;
-import com.example.auctionserver.application.port.out.model.ResponseAuctionDto;
+import com.example.auctionserver.application.usecase.model.ResponseAuctionDto;
 import com.example.auctionserver.domain.Auction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class GetAuctionService implements GetAuctionUseCase {
+public class GetAuctionService implements GetAuctionQuery {
 
     private final GetAuctionPort getAuctionPort;
 

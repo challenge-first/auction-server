@@ -1,7 +1,8 @@
 package com.example.auctionserver.application.service;
 
-import com.example.auctionserver.application.port.in.PostAuctionUseCase;
-import com.example.auctionserver.application.port.in.model.RequestAuctionDto;
+import com.example.auctionserver.application.port.in.PostAuctionCommand;
+import com.example.auctionserver.application.usecase.PostAuctionUseCase;
+import com.example.auctionserver.adapter.in.web.model.RequestAuctionDto;
 import com.example.auctionserver.application.port.out.PostAuctionPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,9 @@ public class PostAuctionService implements PostAuctionUseCase {
 
     @Override
     @Transactional
-    public String createAuction(RequestAuctionDto requestAuctionDto, Long memberId) {
+    public String createAuction(PostAuctionCommand postAuctionCommand) {
 
-        postAuctionPort.createAuction(requestAuctionDto, memberId);
+        postAuctionPort.createAuction(postAuctionCommand);
 
         return "등록완료";
     }
