@@ -1,8 +1,8 @@
 package com.example.auctionserver.adapter.out.feign;
 
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
 import com.example.auctionserver.application.port.out.GetMemberPointPort;
-import com.example.auctionserver.global.dto.response.ResponsePointDto;
+import com.example.auctionserver.application.port.out.model.ResponsePointDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public interface MemberServiceClient extends GetMemberPointPort {
     ResponseEntity<ResponsePointDto> getPoint(@RequestHeader("x-authorization-id") Long memberId);
 
     @Override
-    default void validatePoint(Long memberId, BidAuctionRequest bidAuctionRequest) {
+    default void validatePoint(Long memberId, RequestBidDto bidAuctionRequest) {
         this.getPoint(memberId).getBody().validatePoint(bidAuctionRequest);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.auctionserver.domain;
 
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,7 +49,7 @@ public class Auction {
     @Column(nullable = false)
     private LocalDateTime closingTime;
 
-    public void update (BidAuctionRequest bidAuctionRequest, Long memberId) {
+    public void update (RequestBidDto bidAuctionRequest, Long memberId) {
 
         if (bidAuctionRequest.getPoint() < this.openingPrice) {
             throw new IllegalArgumentException("기본 입찰가보다 부족한 입찰 금액입니다");

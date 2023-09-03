@@ -1,11 +1,11 @@
 package com.example.auctionserver.application.service;
 
 import com.example.auctionserver.application.port.in.BidAuctionUseCase;
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
 import com.example.auctionserver.application.port.out.GetMemberPointPort;
 import com.example.auctionserver.application.port.out.PublishEventPort;
 import com.example.auctionserver.application.port.out.UpdateWinningPricePort;
-import com.example.auctionserver.application.port.out.model.UpdateWinningPriceResponse;
+import com.example.auctionserver.application.port.out.model.ResponseWinningPriceDto;
 import com.example.auctionserver.domain.Auction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class BidAuctionService implements BidAuctionUseCase {
 
     @Override
     @Transactional
-    public UpdateWinningPriceResponse bid(Long auctionId, BidAuctionRequest bidAuctionRequest, Long memberId) {
+    public ResponseWinningPriceDto bid(Long auctionId, RequestBidDto bidAuctionRequest, Long memberId) {
 
         getMemberPointPort.validatePoint(memberId, bidAuctionRequest);
 
@@ -32,8 +32,8 @@ public class BidAuctionService implements BidAuctionUseCase {
         return updateWinningPriceResponse(updateAuction);
     }
 
-    private UpdateWinningPriceResponse updateWinningPriceResponse(Auction auction) {
-        return UpdateWinningPriceResponse.builder()
+    private ResponseWinningPriceDto updateWinningPriceResponse(Auction auction) {
+        return ResponseWinningPriceDto.builder()
                 .winningPrice(auction.getWinningPrice())
                 .build();
     }

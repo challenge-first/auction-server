@@ -2,7 +2,7 @@ package com.example.auctionserver.application.service;
 
 import com.example.auctionserver.application.port.in.GetAuctionUseCase;
 import com.example.auctionserver.application.port.out.GetAuctionPort;
-import com.example.auctionserver.application.port.out.model.GetAuctionResponse;
+import com.example.auctionserver.application.port.out.model.ResponseAuctionDto;
 import com.example.auctionserver.domain.Auction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,16 +18,16 @@ public class GetAuctionService implements GetAuctionUseCase {
     private final GetAuctionPort getAuctionPort;
 
     @Override
-    public GetAuctionResponse getAuction() {
+    public ResponseAuctionDto getAuction() {
 
         Auction auction = getAuctionPort.findByCurrentTime(LocalDateTime.now());
 
         return createGetAuctionResponse(auction);
     }
 
-    private GetAuctionResponse createGetAuctionResponse(Auction auction) {
+    private ResponseAuctionDto createGetAuctionResponse(Auction auction) {
 
-        return GetAuctionResponse.builder()
+        return ResponseAuctionDto.builder()
                 .id(auction.getId())
                 .productName(auction.getProductName())
                 .winningPrice(auction.getWinningPrice())

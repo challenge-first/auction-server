@@ -1,8 +1,8 @@
 package com.example.auctionserver.application.port.out;
 
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
 
 public interface GetMemberPointPort {
 
-    void validatePoint(Long memberId, BidAuctionRequest bidAuctionRequest);
+    void validatePoint(Long memberId, RequestBidDto bidAuctionRequest);
 }

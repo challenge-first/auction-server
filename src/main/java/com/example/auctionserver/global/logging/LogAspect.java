@@ -26,11 +26,21 @@ public class LogAspect {
         log.info("[{}]" , joinPoint.getSignature().getName());
     }
 
-    @AfterThrowing
+    @AfterThrowing(value = "controller()", throwing = "ex")
+    public void logControllerException(JoinPoint joinPoint, Exception ex) {
+
+        log.info("[ex] {} / message: {} " , joinPoint.getSignature().getName(), ex.getMessage());
+    }
 
     @Before("service()")
     public void logServiceMethodCall(JoinPoint joinPoint) {
 
         log.info("[{}]" , joinPoint.getSignature().getName());
+    }
+
+    @AfterThrowing(value = "service()", throwing = "ex")
+    public void logServiceException(JoinPoint joinPoint, Exception ex) {
+
+        log.info("[ex] {} / message: {} " , joinPoint.getSignature().getName(), ex.getMessage());
     }
 }

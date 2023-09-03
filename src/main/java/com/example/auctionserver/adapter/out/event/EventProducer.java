@@ -1,8 +1,7 @@
 package com.example.auctionserver.adapter.out.event;
 
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
 import com.example.auctionserver.application.port.out.PublishEventPort;
-import com.example.auctionserver.application.port.out.model.PublishBidEventRequest;
+import com.example.auctionserver.application.port.out.model.BidEventModel;
 import com.example.auctionserver.domain.Auction;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,9 +26,9 @@ public class EventProducer implements PublishEventPort {
     private String auctionEndTopic;
 
     @Override
-    public void sendBidEvent(Long memberId, BidAuctionRequest bidAuctionRequest) {
+    public void sendBidEvent(Long memberId, com.example.auctionserver.application.port.in.model.RequestBidDto bidAuctionRequest) {
 
-        PublishBidEventRequest publishBidEventRequest = PublishBidEventRequest.builder()
+        BidEventModel publishBidEventRequest = BidEventModel.builder()
                 .memberId(memberId)
                 .bid(bidAuctionRequest.getPoint())
                 .build();
@@ -49,7 +48,7 @@ public class EventProducer implements PublishEventPort {
     @Override
     public void sendEndEvent(Auction auction) {
 
-        PublishBidEventRequest publishBidEventRequest = PublishBidEventRequest.builder()
+        BidEventModel publishBidEventRequest = BidEventModel.builder()
                 .memberId(auction.getMemberId())
                 .bid(auction.getWinningPrice())
                 .build();
@@ -62,7 +61,7 @@ public class EventProducer implements PublishEventPort {
             e.printStackTrace();
         }
 
-        kafkaTemplate.send(bidTopic, jsonInString);
+        kafkaTemplate.send(auctionEndTopic, jsonInString);
         log.info("memberId:{}, point:{}", publishBidEventRequest.getMemberId(), publishBidEventRequest.getBid());
     }
 }

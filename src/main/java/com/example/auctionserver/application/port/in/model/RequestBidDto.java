@@ -11,10 +11,9 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor
-public class BidAuctionRequest {
+public class RequestBidDto {
 
     private Long point;
     private LocalDateTime time;
 
-    // 입찰 관련 유효성 검사
 }

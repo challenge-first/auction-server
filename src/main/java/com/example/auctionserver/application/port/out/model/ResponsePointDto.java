@@ -1,6 +1,6 @@
-package com.example.auctionserver.global.dto.response;
+package com.example.auctionserver.application.port.out.model;
 
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,10 +20,8 @@ public class ResponsePointDto {
     private Long deposit;
     private Long availablePoint;
 
-    public void validatePoint(BidAuctionRequest bidAuctionRequest) {
+    public void validatePoint(RequestBidDto bidAuctionRequest) {
         if (bidAuctionRequest.getPoint() > this.point) {
-            log.info("bid point: {}",bidAuctionRequest.getPoint());
-            log.info("poin: {}", this.point);
             throw new IllegalArgumentException("가지고 있는 포인트보다 많은 금액을 입찰할 수 없습니다");
         }
     }

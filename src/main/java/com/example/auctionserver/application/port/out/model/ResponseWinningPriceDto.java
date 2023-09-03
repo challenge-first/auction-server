@@ -11,7 +11,6 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
-public class GetMemberPointResponse {
-
-    private Long point;
+public class ResponseWinningPriceDto {
+    private Long winningPrice;
 }

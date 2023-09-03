@@ -1,7 +1,7 @@
 package com.example.auctionserver.adapter.in.web;
 
 import com.example.auctionserver.application.port.in.GetAuctionUseCase;
-import com.example.auctionserver.application.port.out.model.GetAuctionResponse;
+import com.example.auctionserver.application.port.out.model.ResponseAuctionDto;
 import com.example.auctionserver.global.response.ResponseDataDto;
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class GetAuctionController {
     @Timed(value = "auctions.getAuction", longTask = true)
     public ResponseEntity<ResponseDataDto> getAuction() {
 
-        ResponseDataDto<GetAuctionResponse> response = new ResponseDataDto<>(getAuctionUseCase.getAuction());
+        ResponseDataDto<ResponseAuctionDto> response = new ResponseDataDto<>(getAuctionUseCase.getAuction());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

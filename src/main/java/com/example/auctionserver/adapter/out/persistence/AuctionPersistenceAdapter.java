@@ -1,6 +1,6 @@
 package com.example.auctionserver.adapter.out.persistence;
 
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
 import com.example.auctionserver.application.port.out.EndAuctionPort;
 import com.example.auctionserver.application.port.out.GetAuctionPort;
 import com.example.auctionserver.application.port.out.UpdateWinningPricePort;
@@ -23,7 +23,7 @@ public class AuctionPersistenceAdapter implements EndAuctionPort, GetAuctionPort
     }
 
     @Override
-    public Auction updateAuction(Long auctionId, BidAuctionRequest bidAuctionRequest, Long memberId) {
+    public Auction updateAuction(Long auctionId, RequestBidDto bidAuctionRequest, Long memberId) {
         Auction findAuction = auctionRepository.findAuctionById(auctionId).orElseThrow(
                 () -> new IllegalArgumentException("진행중인 경매가 없습니다"));
         findAuction.update(bidAuctionRequest, memberId);

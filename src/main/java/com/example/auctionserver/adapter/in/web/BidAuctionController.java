@@ -1,8 +1,8 @@
 package com.example.auctionserver.adapter.in.web;
 
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
 import com.example.auctionserver.application.port.in.BidAuctionUseCase;
-import com.example.auctionserver.application.port.out.model.UpdateWinningPriceResponse;
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
+import com.example.auctionserver.application.port.out.model.ResponseWinningPriceDto;
 import com.example.auctionserver.global.auth.LoginMember;
 import com.example.auctionserver.global.response.ResponseDataDto;
 import io.micrometer.core.annotation.Timed;
@@ -21,11 +21,10 @@ public class BidAuctionController {
     @PostMapping("/{auctionId}")
     @Timed(value = "auctions.bid", longTask = true)
     public ResponseEntity<ResponseDataDto> bid(@PathVariable Long auctionId,
-                                               @RequestBody BidAuctionRequest bidAuctionRequest,
+                                               @RequestBody RequestBidDto requestBidDto,
                                                @LoginMember Long memberId) {
 
-        UpdateWinningPriceResponse updateWinningPriceResponse = bidAuctionUseCase.bid(auctionId, bidAuctionRequest, memberId);
-        ResponseDataDto responseDataDto = new ResponseDataDto(updateWinningPriceResponse);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDataDto);
+        ResponseDataDto<ResponseWinningPriceDto> response = new ResponseDataDto<>(bidAuctionUseCase.bid(auctionId, requestBidDto, memberId));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

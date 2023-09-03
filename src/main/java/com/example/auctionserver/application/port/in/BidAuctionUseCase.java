@@ -1,9 +1,9 @@
 package com.example.auctionserver.application.port.in;
 
-import com.example.auctionserver.application.port.in.model.BidAuctionRequest;
-import com.example.auctionserver.application.port.out.model.UpdateWinningPriceResponse;
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
+import com.example.auctionserver.application.port.out.model.ResponseWinningPriceDto;
 
 public interface BidAuctionUseCase {
 
-    UpdateWinningPriceResponse bid(Long auctionId, BidAuctionRequest bidAuctionRequest, Long memberId);
+    ResponseWinningPriceDto bid(Long auctionId, RequestBidDto bidAuctionRequest, Long memberId);
 }
