@@ -5,5 +5,5 @@ import com.example.auctionserver.domain.Auction;
 
 public interface UpdateWinningPricePort {
 
-    Auction updateAuction(Long auctionId, RequestBidDto bidAuctionRequest, Long memberId);
+    Auction updateAuction(Long auctionId, RequestBidDto requestBidDto, Long memberId);
 }

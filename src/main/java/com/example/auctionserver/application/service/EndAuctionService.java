@@ -23,6 +23,6 @@ public class EndAuctionService {
 
         Auction auction = endAuctionPort.findByClosingTimeBetween(LocalDateTime.now().withHour(15), LocalDateTime.now().withHour(16).withMinute(59));
 
-        publishEventPort.sendEndEvent(auction);
+        publishEventPort.sendEndEvent(auction.getMemberId(), auction.getWinningPrice());
     }
 }

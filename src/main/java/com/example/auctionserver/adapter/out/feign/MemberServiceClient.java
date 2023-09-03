@@ -16,7 +16,7 @@ public interface MemberServiceClient extends GetMemberPointPort {
     ResponseEntity<ResponsePointDto> getPoint(@RequestHeader("x-authorization-id") Long memberId);
 
     @Override
-    default void validatePoint(Long memberId, RequestBidDto bidAuctionRequest) {
-        this.getPoint(memberId).getBody().validatePoint(bidAuctionRequest);
+    default void validatePoint(Long memberId, RequestBidDto requestBidDto) {
+        this.getPoint(memberId).getBody().validatePoint(requestBidDto);
     }
 }

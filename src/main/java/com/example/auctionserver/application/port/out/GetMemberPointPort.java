@@ -4,5 +4,5 @@ import com.example.auctionserver.application.port.in.model.RequestBidDto;
 
 public interface GetMemberPointPort {
 
-    void validatePoint(Long memberId, RequestBidDto bidAuctionRequest);
+    void validatePoint(Long memberId, RequestBidDto requestBidDto);
 }

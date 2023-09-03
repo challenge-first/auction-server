@@ -21,13 +21,13 @@ public class BidAuctionService implements BidAuctionUseCase {
 
     @Override
     @Transactional
-    public ResponseWinningPriceDto bid(Long auctionId, RequestBidDto bidAuctionRequest, Long memberId) {
+    public ResponseWinningPriceDto bid(Long auctionId, RequestBidDto requestBidDto, Long memberId) {
 
-        getMemberPointPort.validatePoint(memberId, bidAuctionRequest);
+        getMemberPointPort.validatePoint(memberId, requestBidDto);
 
-        Auction updateAuction = updateWinningPricePort.updateAuction(auctionId, bidAuctionRequest, memberId);
+        Auction updateAuction = updateWinningPricePort.updateAuction(auctionId, requestBidDto, memberId);
 
-        publishEventPort.sendBidEvent(memberId, bidAuctionRequest);
+        publishEventPort.sendBidEvent(memberId, requestBidDto);
 
         return updateWinningPriceResponse(updateAuction);
     }

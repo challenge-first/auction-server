@@ -22,11 +22,10 @@ public class GetAuctionService implements GetAuctionUseCase {
 
         Auction auction = getAuctionPort.findByCurrentTime(LocalDateTime.now());
 
-        return createGetAuctionResponse(auction);
+        return createResponseAuctionDto(auction);
     }
 
-    private ResponseAuctionDto createGetAuctionResponse(Auction auction) {
-
+    private ResponseAuctionDto createResponseAuctionDto(Auction auction) {
         return ResponseAuctionDto.builder()
                 .id(auction.getId())
                 .productName(auction.getProductName())

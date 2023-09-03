@@ -49,21 +49,21 @@ public class Auction {
     @Column(nullable = false)
     private LocalDateTime closingTime;
 
-    public void update (RequestBidDto bidAuctionRequest, Long memberId) {
+    public void update(RequestBidDto requestBidDto, Long memberId) {
 
-        if (bidAuctionRequest.getPoint() < this.openingPrice) {
+        if (requestBidDto.getPoint() < this.openingPrice) {
             throw new IllegalArgumentException("기본 입찰가보다 부족한 입찰 금액입니다");
         }
 
-        if (bidAuctionRequest.getPoint() <= this.winningPrice) {
+        if (requestBidDto.getPoint() <= this.winningPrice) {
             throw new IllegalArgumentException("현재 입찰가보다 부족한 입찰 금액입니다");
         }
 
-        if (bidAuctionRequest.getTime().isAfter(this.closingTime)) {
+        if (requestBidDto.getTime().isAfter(this.closingTime)) {
             throw new IllegalStateException("경매가 종료되었습니다");
         }
 
-        this.winningPrice = bidAuctionRequest.getPoint();
+        this.winningPrice = requestBidDto.getPoint();
         this.memberId = memberId;
     }
 }

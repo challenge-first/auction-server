@@ -5,5 +5,5 @@ import com.example.auctionserver.application.port.out.model.ResponseWinningPrice
 
 public interface BidAuctionUseCase {
 
-    ResponseWinningPriceDto bid(Long auctionId, RequestBidDto bidAuctionRequest, Long memberId);
+    ResponseWinningPriceDto bid(Long auctionId, RequestBidDto requestBidDto, Long memberId);
 }

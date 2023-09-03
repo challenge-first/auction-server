@@ -1,8 +1,8 @@
 package com.example.auctionserver.adapter.out.event;
 
+import com.example.auctionserver.application.port.in.model.RequestBidDto;
 import com.example.auctionserver.application.port.out.PublishEventPort;
 import com.example.auctionserver.application.port.out.model.BidEventModel;
-import com.example.auctionserver.domain.Auction;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -26,42 +26,37 @@ public class EventProducer implements PublishEventPort {
     private String auctionEndTopic;
 
     @Override
-    public void sendBidEvent(Long memberId, com.example.auctionserver.application.port.in.model.RequestBidDto bidAuctionRequest) {
+    public void sendBidEvent(Long memberId, RequestBidDto requestBidDto) {
 
-        BidEventModel publishBidEventRequest = BidEventModel.builder()
-                .memberId(memberId)
-                .bid(bidAuctionRequest.getPoint())
-                .build();
-
-        String jsonInString = "";
+        BidEventModel bidEventModel = getBidEventModel(memberId, requestBidDto.getPoint());
 
         try {
-            jsonInString = objectMapper.writeValueAsString(publishBidEventRequest);
+            kafkaTemplate.send(bidTopic, objectMapper.writeValueAsString(bidEventModel));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 
-        kafkaTemplate.send(bidTopic, jsonInString);
-        log.info("memberId:{}, point:{}", publishBidEventRequest.getMemberId(), publishBidEventRequest.getBid());
+        log.info("memberId:{}, point:{}", bidEventModel.getMemberId(), bidEventModel.getBid());
     }
 
     @Override
-    public void sendEndEvent(Auction auction) {
+    public void sendEndEvent(Long memberId, Long point) {
 
-        BidEventModel publishBidEventRequest = BidEventModel.builder()
-                .memberId(auction.getMemberId())
-                .bid(auction.getWinningPrice())
-                .build();
-
-        String jsonInString = "";
+        BidEventModel bidEventModel = getBidEventModel(memberId, point);
 
         try {
-            jsonInString = objectMapper.writeValueAsString(publishBidEventRequest);
+            kafkaTemplate.send(auctionEndTopic, objectMapper.writeValueAsString(bidEventModel));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 
-        kafkaTemplate.send(auctionEndTopic, jsonInString);
-        log.info("memberId:{}, point:{}", publishBidEventRequest.getMemberId(), publishBidEventRequest.getBid());
+        log.info("memberId:{}, point:{}", bidEventModel.getMemberId(), bidEventModel.getBid());
+    }
+
+    private BidEventModel getBidEventModel(Long memberId, Long point) {
+        return BidEventModel.builder()
+                .memberId(memberId)
+                .bid(point)
+                .build();
     }
 }
