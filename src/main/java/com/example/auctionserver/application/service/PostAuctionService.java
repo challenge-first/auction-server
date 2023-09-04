@@ -1,9 +1,8 @@
 package com.example.auctionserver.application.service;
 
 import com.example.auctionserver.application.port.in.PostAuctionCommand;
-import com.example.auctionserver.application.usecase.PostAuctionUseCase;
-import com.example.auctionserver.adapter.in.web.model.RequestAuctionDto;
 import com.example.auctionserver.application.port.out.PostAuctionPort;
+import com.example.auctionserver.application.usecase.PostAuctionUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

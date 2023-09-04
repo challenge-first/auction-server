@@ -1,10 +1,10 @@
 package com.example.auctionserver.application.service;
 
 import com.example.auctionserver.application.port.in.BidAuctionCommand;
-import com.example.auctionserver.application.usecase.BidAuctionUseCase;
 import com.example.auctionserver.application.port.out.GetMemberPointPort;
 import com.example.auctionserver.application.port.out.PublishEventPort;
 import com.example.auctionserver.application.port.out.UpdateWinningPricePort;
+import com.example.auctionserver.application.usecase.BidAuctionUseCase;
 import com.example.auctionserver.application.usecase.model.ResponseBidDto;
 import com.example.auctionserver.domain.Auction;
 import lombok.RequiredArgsConstructor;

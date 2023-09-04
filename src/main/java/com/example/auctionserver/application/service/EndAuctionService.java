@@ -19,7 +19,7 @@ public class EndAuctionService {
 
     @Scheduled(cron = "1 59 16 * * *")
     @Transactional(readOnly = true)
-    public void checkAndCloseAuctions() {
+    public void checkAndCloseAuction() {
 
         Auction auction = endAuctionPort.findByClosingTimeBetween(LocalDateTime.now().withHour(15), LocalDateTime.now().withHour(16).withMinute(59));
 

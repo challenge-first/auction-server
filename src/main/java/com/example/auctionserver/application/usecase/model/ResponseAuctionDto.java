@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PROTECTED;
 @AllArgsConstructor(access = PROTECTED)
 public class ResponseAuctionDto {
 
-    private Long id;
+    private Long auctionId;
     private String productName;
     private String imageUrl;
     private Long openingPrice;

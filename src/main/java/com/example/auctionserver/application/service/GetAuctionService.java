@@ -27,7 +27,7 @@ public class GetAuctionService implements GetAuctionQuery {
 
     private ResponseAuctionDto createResponseAuctionDto(Auction auction) {
         return ResponseAuctionDto.builder()
-                .id(auction.getId())
+                .auctionId(auction.getId())
                 .productName(auction.getProductName())
                 .winningPrice(auction.getWinningPrice())
                 .openingPrice(auction.getOpeningPrice())

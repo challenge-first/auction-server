@@ -1,6 +1,5 @@
 package com.example.auctionserver.domain;
 
-import com.example.auctionserver.adapter.in.web.model.RequestBidDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +10,6 @@ import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
-
 
 @Entity
 @Table(name = "auctions")

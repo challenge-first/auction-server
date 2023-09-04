@@ -34,9 +34,6 @@ dependencies {
     implementation 'io.micrometer:micrometer-tracing-bridge-brave'
     implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
     implementation 'io.github.openfeign:feign-micrometer:12.4'
-    implementation 'io.github.resilience4j:resilience4j-spring-boot2:1.7.0'
-    implementation 'io.github.resilience4j:resilience4j-retry:1.7.0'
-    implementation 'io.github.resilience4j:resilience4j-circuitbreaker:1.7.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 
     compileOnly 'org.projectlombok:lombok'
@@ -49,6 +46,18 @@ dependencies {
     testImplementation 'org.springframework.kafka:spring-kafka-test'
     testImplementation 'org.awaitility:awaitility:4.2.0'
     testImplementation 'org.springframework.kafka:spring-kafka-test'
+}
+
+ext {
+    set('springCloudVersion', "2022.0.3")
+}
+
+dependencyManagement {
+
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+
 }
 
 tasks.named('test') {
