@@ -53,7 +53,7 @@ public class Auction {
             throw new IllegalArgumentException("기본 입찰가보다 부족한 입찰 금액입니다");
         }
 
-        if (bidPoint < this.winningPrice) {
+        if (bidPoint <= this.winningPrice) {
             throw new IllegalArgumentException("현재 입찰가보다 부족한 입찰 금액입니다");
         }
 
