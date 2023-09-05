@@ -1,9 +1,5 @@
 server:
   port: ${PORT}
-  tomcat:
-    threads:
-      max: 400
-      min-spare: 40
 
 spring:
   application:
@@ -13,8 +9,6 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-    hikari:
-      maximum-pool-size: 30
   h2:
     console:
       enabled: true
@@ -24,6 +18,17 @@ spring:
       ddl-auto: update
     properties:
       hibernate.format_sql: true
+  cloud:
+    openfeign:
+      circuitbreaker:
+          enabled: true
+          alphanumeric-ids:
+            enabled: true
+      client:
+        config:
+          default:
+            connect-timeout: 5000
+            read-timeout: 5000
 
 eureka:
   client:
@@ -32,13 +37,20 @@ eureka:
     service-url:
       defaultZone: ${EUREKA_DEFAULT_ZONE}
   instance:
+    instance-id: auction-server
     hostname: ${PRIVATE_IP}
 
 management:
+  health:
+    circuitbreakers:
+      enabled: true
   endpoints:
     web:
       exposure:
         include: ${ACTUATOR_END_POINT}
+  endpoint:
+    health:
+      show-details: always
   tracing:
     sampling:
       probability: 1.0
@@ -58,3 +70,26 @@ kafka:
 logging:
   pattern:
     level: "%5p [%X{traceId:-},  %X{spanId:-}]"
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        failure-rate-threshold: 50
+        slow-call-rate-threshold: 50
+        slow-call-duration-threshold: 3000
+        permitted-number-of-calls-in-half-open-state: 3
+        max-wait-duration-in-half-open-state: 3000
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        wait-duration-in-open-state: 1000
+        register-health-indicator: true
+    instances:
+      customCircuitBreaker:
+        base-config: default
+      MemberServiceClientgetPointLong:
+        base-config: default
+      MemberServiceClientvalidatePointLongLong:
+        base-config: default
+

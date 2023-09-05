@@ -16,7 +16,6 @@ public class AuctionExceptionHandler {
         return ResponseEntity.status(BAD_REQUEST).body(response);
     }
 
-
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ResponseMessageDto> handleIllegalStateException(IllegalStateException e) {
         ResponseMessageDto response = new ResponseMessageDto(e.getMessage(), BAD_REQUEST.value(), BAD_REQUEST.toString());
