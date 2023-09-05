@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MemberServerClientFallback implements MemberServiceClient {
 
-
     @Override
     public ResponseEntity<ResponsePointDto> getPoint(Long memberId) {
 
