@@ -39,7 +39,6 @@ eureka:
   instance:
     instance-id: auction-server
     hostname: ${PRIVATE_IP}
-    instance-id: auction-server
 
 management:
   health:
