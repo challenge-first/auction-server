@@ -22,6 +22,8 @@ spring:
     openfeign:
       circuitbreaker:
           enabled: true
+          alphanumeric-ids:
+            enabled: true
       client:
         config:
           default:
@@ -85,5 +87,9 @@ resilience4j:
         register-health-indicator: true
     instances:
       customCircuitBreaker:
+        base-config: default
+      MemberServiceClientgetPointLong:
+        base-config: default
+      MemberServiceClientvalidatePointLongLong:
         base-config: default
 
