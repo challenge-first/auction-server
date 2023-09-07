@@ -1,6 +1,5 @@
 package com.example.auctionserver.global.config;
 
-import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import org.springframework.context.annotation.Bean;
@@ -15,12 +14,12 @@ public class Resilience4jConfig {
         return CircuitBreakerConfig.custom()
                 .failureRateThreshold(40)
                 .slowCallRateThreshold(40)
-                .slowCallDurationThreshold(Duration.ofSeconds(3))
+                .slowCallDurationThreshold(Duration.ofSeconds(6))
                 .permittedNumberOfCallsInHalfOpenState(5)
                 .maxWaitDurationInHalfOpenState(Duration.ofSeconds(3))
                 .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
                 .slidingWindowSize(10)
-                .minimumNumberOfCalls(10)
+                .minimumNumberOfCalls(20)
                 .waitDurationInOpenState(Duration.ofSeconds(1))
                 .build();
     }
