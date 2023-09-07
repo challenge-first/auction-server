@@ -75,19 +75,17 @@ resilience4j:
   circuitbreaker:
     configs:
       default:
-        failure-rate-threshold: 50
-        slow-call-rate-threshold: 50
+        failure-rate-threshold: 40
+        slow-call-rate-threshold: 40
         slow-call-duration-threshold: 3000
-        permitted-number-of-calls-in-half-open-state: 3
+        permitted-number-of-calls-in-half-open-state: 5
         max-wait-duration-in-half-open-state: 3000
         sliding-window-type: COUNT_BASED
         sliding-window-size: 10
-        minimum-number-of-calls: 5
+        minimum-number-of-calls: 10
         wait-duration-in-open-state: 1000
         register-health-indicator: true
     instances:
-      customCircuitBreaker:
-        base-config: default
       MemberServiceClientgetPointLong:
         base-config: default
       MemberServiceClientvalidatePointLongLong:

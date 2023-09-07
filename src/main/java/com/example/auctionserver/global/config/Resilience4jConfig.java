@@ -10,29 +10,24 @@ import java.time.Duration;
 
 @Configuration
 public class Resilience4jConfig {
+    @Bean
+    public CircuitBreakerConfig circuitBreakerConfig() {
+        return CircuitBreakerConfig.custom()
+                .failureRateThreshold(40)
+                .slowCallRateThreshold(40)
+                .slowCallDurationThreshold(Duration.ofSeconds(3))
+                .permittedNumberOfCallsInHalfOpenState(5)
+                .maxWaitDurationInHalfOpenState(Duration.ofSeconds(3))
+                .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
+                .slidingWindowSize(10)
+                .minimumNumberOfCalls(10)
+                .waitDurationInOpenState(Duration.ofSeconds(1))
+                .build();
+    }
 
     @Bean
     public CircuitBreakerRegistry circuitBreakerRegistry() {
-        return CircuitBreakerRegistry.ofDefaults();
+
+        return CircuitBreakerRegistry.of(circuitBreakerConfig());
     }
-
-    @Bean
-    public CircuitBreaker circuitBreaker(CircuitBreakerRegistry circuitBreakerRegistry) {
-        return circuitBreakerRegistry.circuitBreaker(
-                "customCircuitBreaker",
-                CircuitBreakerConfig.custom()
-                        .failureRateThreshold(50)
-                        .slowCallRateThreshold(50)
-                        .slowCallDurationThreshold(Duration.ofSeconds(3))
-                        .permittedNumberOfCallsInHalfOpenState(5)
-                        .maxWaitDurationInHalfOpenState(Duration.ofSeconds(3))
-                        .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
-                        .slidingWindowSize(10)
-                        .minimumNumberOfCalls(5)
-                        .waitDurationInOpenState(Duration.ofSeconds(1))
-                        .build()
-        );
-    }
-
-
 }
