@@ -1,4 +1,4 @@
-# 게임 소개 및 리뷰 사이트
+# MSA 이커머스 플랫폼 경매 서비스
 <img src='./src/main/resources/images/MaybeZone.png' width="100%">
 
 
